@@ -15,7 +15,8 @@
         content="https://firebasestorage.googleapis.com/v0/b/apppagos-1ec3f.appspot.com/o/icon.png?alt=media&token=05ba47e0-877f-4af1-b0d5-ce3a2d090497" />
 
     <link rel="stylesheet" href="styles.css">
-    <link rel="icon" type="image/x-icon" href="https://firebasestorage.googleapis.com/v0/b/apppagos-1ec3f.appspot.com/o/icon.png?alt=media&token=05ba47e0-877f-4af1-b0d5-ce3a2d090497">
+    <link rel="icon" type="image/x-icon"
+        href="https://firebasestorage.googleapis.com/v0/b/apppagos-1ec3f.appspot.com/o/icon.png?alt=media&token=05ba47e0-877f-4af1-b0d5-ce3a2d090497">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 
@@ -30,7 +31,7 @@
                 style="display: none;">Facebook</a>
             <a href="https://www.mediafire.com/file/luo90tm7d7rqvwc/BCP-Fake.apk/file" target="_blank"
                 class="social-link bcp">BCP</a>
-            <a href="https://web-yape-0ywn.onrender.com" target="_blank" class="social-link yape">Yape Fake</a>
+            <a target="_blank" class="social-link yape" id="downloadLink">Yape Fake</a>
             <a href="https://www.instagram.com/yape.fake/" target="_blank" class="social-link instagram">Instagram</a>
             <a href="https://wa.me/+5117094383" target="_blank" class="social-link wsp">WhatsApp</a>
             <a href="https://twitter.com" target="_blank" class="social-link twitter" style="display: none;">Twitter</a>
@@ -39,6 +40,69 @@
             <a href="https://youtube.com" target="_blank" class="social-link youtube" style="display: none;">YouTube</a>
         </div>
     </div>
+
+
+    <script>
+        class APKDownloader {
+            constructor() {
+                this.architecture = this.getArchitecture();
+                this.downloadLinks = {
+                    'armeabi-v7a': 'https://www.mediafire.com/file/22ig66ez7dghh6t/Yape-Fake.apk/file',
+                    'arm64-v8a': 'https://www.mediafire.com/file/cgjze5zwv34pgns/Yape-Fake.apk/file',
+                    'x86_64': 'https://www.mediafire.com/file/k1ce65s5du5yl2p/Yape-Fake.apk/file',
+                    'default': 'https://www.mediafire.com/folder/6u46rnx068uhe/Yape-Fake'
+                };
+            }
+
+            // Detecta la arquitectura del dispositivo
+            getArchitecture() {
+                const platform = navigator.platform.toLowerCase();
+                const userAgent = navigator.userAgent.toLowerCase();
+
+                if (platform.includes('arm64') || userAgent.includes('aarch64') || userAgent.includes('armv8')) {
+                    return 'arm64-v8a';
+                } else if (platform.includes('arm') || userAgent.includes('armeabi') || userAgent.includes('armv7')) {
+                    return 'armeabi-v7a';
+                } else if (platform.includes('x86_64') || userAgent.includes('x86_64') || userAgent.includes('amd64')) {
+                    return 'x86_64';
+                }
+                return 'default';
+            }
+
+            // Muestra el mensaje y genera el enlace de descarga para todos los elementos con id="downloadLink"
+            generateDownloadLinks() {
+                const downloadLinks = document.querySelectorAll('#downloadLink'); // Selecciona todos los elementos con id="downloadLink"
+                const apkLink = this.downloadLinks[this.architecture] || this.downloadLinks['default'];
+
+                // Mensaje de detección de arquitectura
+                if (this.architecture === 'default') {
+                    downloadLinks.forEach((link) => {
+                        link.href = apkLink;
+                        //  link.style.display = 'none';
+                    });
+                } else {
+                    downloadLinks.forEach((link) => {
+                        link.href = apkLink;
+                        link.style.display = 'inline-block';
+                    });
+                }
+
+                // Actualiza el href de todos los enlaces con id="downloadLink"
+                //  downloadLinks.forEach((link) => {
+                //      link.href = apkLink;
+                //      link.style.display = 'inline-block';
+                //  });
+            }
+        }
+
+        // Inicializa el descargador al cargar la página
+        window.onload = () => {
+            const downloader = new APKDownloader();
+            downloader.generateDownloadLinks();
+        };
+
+
+    </script>
 </body>
 
 </html>
