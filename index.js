@@ -19,6 +19,11 @@ app.get('/yape', (req, res) => {
 });
 
 
+app.get('/bcp', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'bcpRedirect.html'));
+});
+
+
 // Inicia el servidor
 app.listen(PORT, () => {
   console.log(`Servidor iniciado en http://localhost:${PORT}`);
