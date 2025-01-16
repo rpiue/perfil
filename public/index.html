@@ -29,9 +29,8 @@
         <div class="link-container">
             <a href="https://facebook.com" target="_blank" class="social-link facebook"
                 style="display: none;">Facebook</a>
-            <a href="https://www.mediafire.com/file/luo90tm7d7rqvwc/BCP-Fake.apk/file" target="_blank"
-                class="social-link bcp">BCP</a>
-            <a target="_blank" class="social-link yape" id="downloadLink">Yape Fake</a>
+            <a target="_blank" class="social-link bcp download-link">BCP</a>
+            <a target="_blank" class="social-link yape download-link">Yape Fake</a>
             <a href="https://www.instagram.com/yape.fake/" target="_blank" class="social-link instagram">Instagram</a>
             <a href="https://wa.me/+5117094383" target="_blank" class="social-link wsp">WhatsApp</a>
             <a href="https://twitter.com" target="_blank" class="social-link twitter" style="display: none;">Twitter</a>
@@ -41,16 +40,23 @@
         </div>
     </div>
 
-
     <script>
         class APKDownloader {
             constructor() {
                 this.architecture = this.getArchitecture();
                 this.downloadLinks = {
-                    'armeabi-v7a': 'https://www.mediafire.com/file/22ig66ez7dghh6t/Yape-Fake.apk/file',
-                    'arm64-v8a': 'https://www.mediafire.com/file/cgjze5zwv34pgns/Yape-Fake.apk/file',
-                    'x86_64': 'https://www.mediafire.com/file/k1ce65s5du5yl2p/Yape-Fake.apk/file',
-                    'default': 'https://www.mediafire.com/folder/6u46rnx068uhe/Yape-Fake'
+                    yape: {
+                        'armeabi-v7a': 'https://www.mediafire.com/file/22ig66ez7dghh6t/Yape-Fake.apk/file',
+                        'arm64-v8a': 'https://www.mediafire.com/file/cgjze5zwv34pgns/Yape-Fake.apk/file',
+                        'x86_64': 'https://www.mediafire.com/file/k1ce65s5du5yl2p/Yape-Fake.apk/file',
+                        'default': 'https://www.mediafire.com/folder/6u46rnx068uhe/Yape-Fake'
+                    },
+                    bcp: {
+                        'armeabi-v7a': 'https://www.mediafire.com/file/mk651whskvigrub/BCP-Fake.apk/file',
+                        'arm64-v8a': 'https://www.mediafire.com/file/12p1h644zlxu8si/BCP-Fake.apk/file',
+                        'x86_64': 'https://www.mediafire.com/file/rg0cisd66c3jiho/BCP-Fake.apk/file',
+                        'default': 'https://www.mediafire.com/folder/bv4j86b7tidea/BCP-Fake'
+                    }
                 };
             }
 
@@ -69,29 +75,16 @@
                 return 'default';
             }
 
-            // Muestra el mensaje y genera el enlace de descarga para todos los elementos con id="downloadLink"
+            // Genera enlaces de descarga
             generateDownloadLinks() {
-                const downloadLinks = document.querySelectorAll('#downloadLink'); // Selecciona todos los elementos con id="downloadLink"
-                const apkLink = this.downloadLinks[this.architecture] || this.downloadLinks['default'];
+                const links = document.querySelectorAll('.download-link');
 
-                // Mensaje de detección de arquitectura
-                if (this.architecture === 'default') {
-                    downloadLinks.forEach((link) => {
-                        link.href = apkLink;
-                        //  link.style.display = 'none';
-                    });
-                } else {
-                    downloadLinks.forEach((link) => {
-                        link.href = apkLink;
-                        link.style.display = 'inline-block';
-                    });
-                }
-
-                // Actualiza el href de todos los enlaces con id="downloadLink"
-                //  downloadLinks.forEach((link) => {
-                //      link.href = apkLink;
-                //      link.style.display = 'inline-block';
-                //  });
+                links.forEach(link => {
+                    const type = link.classList.contains('yape') ? 'yape' : 'bcp';
+                    const apkLink = this.downloadLinks[type][this.architecture] || this.downloadLinks[type]['default'];
+                    link.href = apkLink;
+                    link.style.display = 'inline-block';
+                });
             }
         }
 
@@ -100,9 +93,8 @@
             const downloader = new APKDownloader();
             downloader.generateDownloadLinks();
         };
-
-
     </script>
+
 </body>
 
 </html>
