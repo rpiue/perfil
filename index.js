@@ -25,6 +25,20 @@ const PORT = process.env.PORT || 3000;
 // Usa la carpeta "public" para servir archivos estáticos
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Ruta principal que envía el archivo index.html
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+app.get('/yape', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'yapeRedirect.html'));
+});
+
+
+app.get('/bcp', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'bcpRedirect.html'));
+});
+
 
 app.get('/:id', async (req, res) => {
   const id = req.params.id;
@@ -62,20 +76,6 @@ app.get('/:id', async (req, res) => {
     res.status(500).send('Error interno');
   }
 });
-// Ruta principal que envía el archivo index.html
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
-app.get('/yape', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'yapeRedirect.html'));
-});
-
-
-app.get('/bcp', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'bcpRedirect.html'));
-});
-
 
 // Inicia el servidor
 app.listen(PORT, () => {
