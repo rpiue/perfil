@@ -16,8 +16,8 @@ const firebaseConfig = {
     measurementId: "G-H5705PFPCW"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const appf = initializeApp(firebaseConfig);
+const db = getFirestore(appf);
 
 // Define el puerto en el que se ejecutará el servidor
 const PORT = process.env.PORT || 3000;
