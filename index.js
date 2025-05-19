@@ -3,9 +3,8 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
-import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore/lite';
-import { getDoc, doc } from 'firebase/firestore/lite';
+const { initializeApp } = require("firebase/app");
+const { getFirestore, getDoc, doc  } require("firebase/firestore/lite");
 
 const firebaseConfig = {
     apiKey: "AIzaSyDCpa3Pg4hcwxrnWl3-Fb4IhqqsDPO1wbg",
