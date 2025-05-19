@@ -1,6 +1,6 @@
 // server.js
 const { initializeApp } = require("firebase/app");
-const { getFirestore, getDoc, doc  } require("firebase/firestore/lite");
+const { getFirestore, getDoc, doc  } = require("firebase/firestore/lite");
 
 const express = require('express');
 const path = require('path');
