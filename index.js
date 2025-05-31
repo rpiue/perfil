@@ -23,7 +23,7 @@ const db = getFirestore(appf);
 
 const {
     darPlan,
-} = require("./db/dato-firebase");
+} = require("./dato-firebase");
 
 // Define el puerto en el que se ejecutará el servidor
 const PORT = process.env.PORT || 3000;
