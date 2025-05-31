@@ -41,10 +41,14 @@ app.post('/sara', async (req, res) => {
       }
 
       let monto
+      let plan
       if (planNombre.toLowerCase().includes('medium')) {
         monto = 35;
+        plan = 'Medium';
       } else if (planNombre.toLowerCase().includes('basico')) {
         monto = 30;
+        plan = 'Basico';
+
       }
       if(monto > 0){
       console.log('Creando link')
@@ -52,7 +56,8 @@ app.post('/sara', async (req, res) => {
         email,
         name: email.split('@')[0], // ejemplo simple para generar un nombre
         monto,
-        descripcion: `${planNombre}`
+        descripcion: `${planNombre}`,
+        plan
       });
   
       res.json({ link: paymentLink });
@@ -85,23 +90,23 @@ app.post('/webhook', async (req, res) => {
 
             if (pago.status === 'approved') {
                 const emailPagador = pago.payer.email;
-                const userData = planUser.get(emailPagador);
+                const plan = pago.metadata?.plan;
 
 
+                await darPlan(emailPagador, plan)
 
-                if (userData && userData.numero && userData.plan && userData.nombre) {
-                    await darPlan(emailPagador, userData.plan)
-                    // 🔁 Enviar POST a /confirmar con los datos
-                    //await axios.post('https://f4ee-38-224-225-141.ngrok-free.app/confirmar', {
-                    //    nombre: userData.nombre,
-                    //    numero: userData.numero,
-                    //    plan: userData.plan
-                    //});
-
-                    //console.log(`📤 POST a /confirmar enviado para ${emailPagador}`);
-                } else {
-                    //console.log(`⚠️ No se encontró la información para ${emailPagador}`);
-                }
+                //if (userData && userData.numero && userData.plan && userData.nombre) {
+                //    // 🔁 Enviar POST a /confirmar con los datos
+                //    //await axios.post('https://f4ee-38-224-225-141.ngrok-free.app/confirmar', {
+                //    //    nombre: userData.nombre,
+                //    //    numero: userData.numero,
+                //    //    plan: userData.plan
+                //    //});
+//
+                //    //console.log(`📤 POST a /confirmar enviado para ${emailPagador}`);
+                //} else {
+                //    //console.log(`⚠️ No se encontró la información para ${emailPagador}`);
+                //}
             }
 
         } catch (err) {
