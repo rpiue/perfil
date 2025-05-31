@@ -1,18 +1,20 @@
 // server.js
 const { initializeApp } = require("firebase/app");
 const {db2} = require('./firebase')
+const {
+    darPlan,
+} = require("./dato-firebase");
+
 const { getFirestore, getDoc, doc  } = require("firebase/firestore/lite");
 const { generarLinkPago, ACCESS_TOKEN } = require('./pago');
 
 const express = require('express');
 const path = require('path');
 const app = express();
+app.use(express.json());
 
 
 
-const {
-    darPlan,
-} = require("./dato-firebase");
 
 // Define el puerto en el que se ejecutará el servidor
 const PORT = process.env.PORT || 3000;
