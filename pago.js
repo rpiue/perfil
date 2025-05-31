@@ -26,7 +26,7 @@ async function generarLinkPago({ email, nombre, monto, descripcion }) {
                     { id: 'debit_card' }
                 ]
             },
-            notification_url: 'https://b7db-38-224-225-141.ngrok-free.app/webhook',
+            notification_url: 'https://perfil-ldpa.onrender.com/webhook',
             external_reference: email,
             statement_descriptor: 'MERCADOPAGO'
         }, {
