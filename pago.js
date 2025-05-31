@@ -31,7 +31,7 @@ async function generarLinkPago({ email, nombre, monto, descripcion, plan }) {
             },
             notification_url: 'https://5763-38-224-225-141.ngrok-free.app/webhook',
             external_reference: email,
-            statement_descriptor: 'MERCADOPAGO'
+            statement_descriptor: 'CodexApps'
         }, {
             headers: {
                 Authorization: `Bearer ${ACCESS_TOKEN}`
