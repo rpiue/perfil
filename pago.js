@@ -5,7 +5,7 @@ const ACCESS_TOKEN = 'APP_USR-4800771767205670-100318-b5830cdbf2f841d503721e9f92
 
 // ✅ CREAR LINK DE PAGO SOLO CON PAGOEFECTIVO, SIN BACK_URLS
 async function generarLinkPago({ email, nombre, monto, descripcion }) {
-    const { acortarLink } = require('./acortador');
+    //const { acortarLink } = require('./acortador');
 
     try {
         const response = await axios.post('https://api.mercadopago.com/checkout/preferences', {
