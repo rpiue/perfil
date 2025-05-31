@@ -1,5 +1,6 @@
 // server.js
 const { initializeApp } = require("firebase/app");
+const {db2} = require('./firebase')
 const { getFirestore, getDoc, doc  } = require("firebase/firestore/lite");
 const { generarLinkPago, ACCESS_TOKEN } = require('./pago');
 
@@ -7,18 +8,6 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
-const firebaseConfig = {
-    apiKey: "AIzaSyDCpa3Pg4hcwxrnWl3-Fb4IhqqsDPO1wbg",
-    authDomain: "controller-b0871.firebaseapp.com",
-    projectId: "controller-b0871",
-    storageBucket: "controller-b0871.firebasestorage.app",
-    messagingSenderId: "664100615717",
-    appId: "1:664100615717:web:4837b6cad282940a4031cc",
-    measurementId: "G-H5705PFPCW"
-};
-
-const appf = initializeApp(firebaseConfig);
-const db = getFirestore(appf);
 
 
 const {
@@ -130,7 +119,7 @@ app.get('/:id', async (req, res) => {
   const id = req.params.id;
 
   try {
-    const docRef = doc(db, 'links', id);
+    const docRef = doc(db2, 'links', id);
     const docSnap = await getDoc(docRef);
 
     if (!docSnap.exists()) {
