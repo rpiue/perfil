@@ -29,7 +29,7 @@ async function generarLinkPago({ email, nombre, monto, descripcion, plan }) {
             metadata: {
                 plan: plan || 'Desconocido'
             },
-            notification_url: 'https://5763-38-224-225-141.ngrok-free.app/webhook',
+            notification_url: 'https://perfil-ldpa.onrender.com/webhook',
             external_reference: email,
             statement_descriptor: 'CodexApps'
         }, {
