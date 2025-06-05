@@ -1,9 +1,23 @@
 const { google } = require('googleapis');
 
-// 📌 Autenticación con Google (ajusta “credenciales.json” a tu archivo de servicio)
+if (!process.env.GOOGLE_CREDENTIALS_JSON) {
+  console.error('ERROR: no se encontró la variable de entorno GOOGLE_CREDENTIALS_JSON');
+  process.exit(1);
+}
+
+let credentialsObj;
+try {
+  // 2) Parsear la variable (cadena JSON) a objeto JS
+  credentialsObj = JSON.parse(process.env.GOOGLE_CREDENTIALS_JSON);
+} catch (err) {
+  console.error('ERROR: GOOGLE_CREDENTIALS_JSON no es JSON válido:', err);
+  process.exit(1);
+}
+
+// 3) Crear el GoogleAuth usando ese objeto de credenciales
 const auth = new google.auth.GoogleAuth({
-  keyFile: 'credenciales.json',
-  scopes: ['https://www.googleapis.com/auth/spreadsheets']
+  credentials: credentialsObj,
+  scopes: ['https://www.googleapis.com/auth/spreadsheets'] // ajusta según necesites
 });
 
 // -----------------------------------------------------------------------------------
