@@ -1,12 +1,12 @@
 // server.js
-const { initializeApp } = require("firebase/app");
-const {db2} = require('./firebase')
+const { db2 } = require('./firebase')
 const {
-    darPlan,
+  darPlan,
 } = require("./dato-firebase");
 
-const { getFirestore, getDoc, doc  } = require("firebase/firestore/lite");
+const { getFirestore, getDoc, doc } = require("firebase/firestore/lite");
 const { generarLinkPago, ACCESS_TOKEN } = require('./pago');
+const { registrarPago } = require('./hoja');
 
 const express = require('express');
 const path = require('path');
@@ -24,6 +24,8 @@ const PORT = process.env.PORT || 3000;
 // Usa la carpeta "public" para servir archivos estáticos
 app.use(express.static(path.join(__dirname, 'public')));
 
+https://docs.google.com/spreadsheets/d/1DPT9ZpTXF0T_PYiL6ul-szNNuOnxlSCDso4xzojmidQ/edit?usp=sharing
+
 // Ruta principal que envía el archivo index.html
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
@@ -34,89 +36,94 @@ app.get('/yape', (req, res) => {
 });
 
 app.post('/sara', async (req, res) => {
-    try {
-      const { email, planNombre } = req.body;
-      console.log('Iniciando')
-  
-      if (!email || !planNombre) {
-        return res.status(400).json({ error: 'Faltan campos requeridos: email, monto o planNombre' });
-      }
+  try {
+    const { email, planNombre } = req.body;
+    console.log('Iniciando')
 
-      let monto
-      let plan
-      if (planNombre.toLowerCase().includes('medium')) {
-        monto = 35;
-        plan = 'Medium';
-      } else if (planNombre.toLowerCase().includes('basico')) {
-        monto = 30;
-        plan = 'Basico';
+    if (!email || !planNombre) {
+      return res.status(400).json({ error: 'Faltan campos requeridos: email, monto o planNombre' });
+    }
 
-      }
-      if(monto > 0){
+    let monto
+    let plan
+    if (planNombre.toLowerCase().includes('medium')) {
+      monto = 35;
+      plan = 'Medium';
+    } else if (planNombre.toLowerCase().includes('basico')) {
+      monto = 30;
+      plan = 'Basico';
+
+    }
+    if (monto > 0) {
       console.log('Creando link')
-        const paymentLink = await generarLinkPago({
+      const paymentLink = await generarLinkPago({
         email,
         name: email.split('@')[0], // ejemplo simple para generar un nombre
         monto,
         descripcion: `${planNombre}`,
-        plan
+        plan,
+        app: 'Yape'
       });
-  
+
       res.json({ link: paymentLink });
-      }else{
+    } else {
       res.status(500).json({ error: 'Error al generar el link de pago' });
 
-      }
-      
-    } catch (error) {
-      console.error('Error al generar el link de pago:', error);
-      res.status(500).json({ error: 'Error al generar el link de pago' });
     }
-  });
+
+  } catch (error) {
+    console.error('Error al generar el link de pago:', error);
+    res.status(500).json({ error: 'Error al generar el link de pago' });
+  }
+});
 
 
 app.post('/webhook', async (req, res) => {
-    const { type, data } = req.body;
-    if (type === 'payment') {
+  const { type, data } = req.body;
+  if (type === 'payment') {
 
-        const paymentId = data.id;
+    const paymentId = data.id;
 
-        try {
-            const payment = await axios.get(`https://api.mercadopago.com/v1/payments/${paymentId}`, {
-                headers: {
-                    Authorization: `Bearer ${ACCESS_TOKEN}`
-                }
-            });
-
-            const pago = payment.data;
-
-            if (pago.status === 'approved') {
-                const emailPagador = pago.payer.email;
-                const plan = pago.metadata?.plan;
-
-
-                await darPlan(emailPagador, plan)
-
-                //if (userData && userData.numero && userData.plan && userData.nombre) {
-                //    // 🔁 Enviar POST a /confirmar con los datos
-                //    //await axios.post('https://f4ee-38-224-225-141.ngrok-free.app/confirmar', {
-                //    //    nombre: userData.nombre,
-                //    //    numero: userData.numero,
-                //    //    plan: userData.plan
-                //    //});
-//
-                //    //console.log(`📤 POST a /confirmar enviado para ${emailPagador}`);
-                //} else {
-                //    //console.log(`⚠️ No se encontró la información para ${emailPagador}`);
-                //}
-            }
-
-        } catch (err) {
-            //console.error('❌ Error consultando pago:', err.response?.data || err.message);
+    try {
+      const payment = await axios.get(`https://api.mercadopago.com/v1/payments/${paymentId}`, {
+        headers: {
+          Authorization: `Bearer ${ACCESS_TOKEN}`
         }
-    }
+      });
 
-    res.sendStatus(200);
+      const pago = payment.data;
+
+      if (pago.status === 'approved') {
+        const emailPagador = pago.payer.email;
+        const plan = pago.metadata?.plan;
+        const monto = pago.metadata?.monto;
+        const app = pago.metadata?.app;
+
+        console.log(`Datos ${emailPagador}`, pago)
+        registrarPago(emailPagador, `Plan ${plan}`, monto, '1DPT9ZpTXF0T_PYiL6ul-szNNuOnxlSCDso4xzojmidQ', app)
+
+        await darPlan(emailPagador, plan)
+
+        //if (userData && userData.numero && userData.plan && userData.nombre) {
+        //    // 🔁 Enviar POST a /confirmar con los datos
+        //    //await axios.post('https://f4ee-38-224-225-141.ngrok-free.app/confirmar', {
+        //    //    nombre: userData.nombre,
+        //    //    numero: userData.numero,
+        //    //    plan: userData.plan
+        //    //});
+        //
+        //    //console.log(`📤 POST a /confirmar enviado para ${emailPagador}`);
+        //} else {
+        //    //console.log(`⚠️ No se encontró la información para ${emailPagador}`);
+        //}
+      }
+
+    } catch (e) {
+      console.error('❌ Error consultando pago:', e.response?.data || e.message);
+    }
+  }
+
+  res.sendStatus(200);
 });
 
 app.get('/bcp', (req, res) => {

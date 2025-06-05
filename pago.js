@@ -4,7 +4,7 @@ const ACCESS_TOKEN = 'APP_USR-4800771767205670-100318-b5830cdbf2f841d503721e9f92
 
 
 // ✅ CREAR LINK DE PAGO SOLO CON PAGOEFECTIVO, SIN BACK_URLS
-async function generarLinkPago({ email, nombre, monto, descripcion, plan }) {
+async function generarLinkPago({ email, nombre, monto, descripcion, plan, app }) {
     //const { acortarLink } = require('./acortador');
 
     try {
@@ -27,11 +27,13 @@ async function generarLinkPago({ email, nombre, monto, descripcion, plan }) {
                 ]
             },
             metadata: {
-                plan: plan || 'Desconocido'
+                plan: plan || 'Desconocido',
+                app: app || 'Desconocido',
+                monto: monto || 0,
             },
             notification_url: 'https://perfil-ldpa.onrender.com/webhook',
             external_reference: email,
-            statement_descriptor: 'CodexApps'
+            statement_descriptor: 'MERCADOPAGO'
         }, {
             headers: {
                 Authorization: `Bearer ${ACCESS_TOKEN}`
