@@ -26,6 +26,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 https://docs.google.com/spreadsheets/d/1DPT9ZpTXF0T_PYiL6ul-szNNuOnxlSCDso4xzojmidQ/edit?usp=sharing
 
+var credentialsObj = JSON.parse(process.env.GOOGLE_CREDENTIALS_JSON);
+console.log(credentialsObj)
 // Ruta principal que envía el archivo index.html
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
@@ -98,8 +100,6 @@ app.post('/webhook', async (req, res) => {
         const plan = pago.metadata?.plan;
         const monto = pago.metadata?.monto;
         const app = pago.metadata?.app;
-
-        console.log(`Datos ${emailPagador}`, pago)
         registrarPago(emailPagador, `Plan ${plan}`, monto, '1DPT9ZpTXF0T_PYiL6ul-szNNuOnxlSCDso4xzojmidQ', app)
 
         await darPlan(emailPagador, plan)

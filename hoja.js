@@ -9,6 +9,7 @@ let credentialsObj;
 try {
   // 2) Parsear la variable (cadena JSON) a objeto JS
   credentialsObj = JSON.parse(process.env.GOOGLE_CREDENTIALS_JSON);
+  
 } catch (err) {
   console.error('ERROR: GOOGLE_CREDENTIALS_JSON no es JSON válido:', err);
   process.exit(1);

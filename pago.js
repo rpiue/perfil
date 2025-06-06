@@ -10,7 +10,7 @@ async function generarLinkPago({ email, nombre, monto, descripcion, plan, app })
     try {
         const response = await axios.post('https://api.mercadopago.com/checkout/preferences', {
             payer: {
-                name: nombre,
+                last_name: nombre,
                 email: email
             }, items: [
                 {
