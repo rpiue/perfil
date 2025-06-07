@@ -1,46 +1,23 @@
 const { google } = require('googleapis');
 
-let raw = process.env.GOOGLE_CREDENTIALS_JSON;
-  if (!raw) {
-    console.error('ERROR: no se encontró GOOGLE_CREDENTIALS_JSON');
-    process.exit(1);
-  }
+if (!process.env.GOOGLE_CREDENTIALS_JSON) {
+  console.error('ERROR: no se encontró la variable de entorno GOOGLE_CREDENTIALS_JSON');
+  process.exit(1);
+}
 
-  // 2) Aplanar si Render te devolvió un objeto serializado como "[object Object]"
-  if (raw.trim() === '[object Object]') {
-    console.error('ERROR: parece que GOOGLE_CREDENTIALS_JSON se cargó como [object Object]. Revisa tu variable en Render.');
-    process.exit(1);
-  }
-
-  // 3) Convertir comillas simples a dobles (por si pegaste un JS‐literal en vez de JSON)
-  raw = raw
-    // transforma keys sin comillas dobles a "key":
-    .replace(/(\w+)\s*:/g, (_, k) => `"${k}":`)
-    // transforma 'value' a "value"
-    .replace(/:\s*'([^']*)'/g, (_, v) => `:"${v}"`);
-
-  // 4) Eliminar concatenaciones de JS (+'…'+) si las copiaste de un dump
-  raw = raw.replace(/\s*\+\s*'\\n'\s*\+\s*'/g, '\\n');
-
-  // 5) Ahora sí, parsear JSON
-  let creds;
-  try {
-    creds = JSON.parse(raw);
-  } catch (err) {
-    console.error('ERROR al parsear GOOGLE_CREDENTIALS_JSON como JSON válido:', err);
-    process.exit(1);
-  }
-
-  // 6) Asegurar saltos de línea reales en private_key
-  if (creds.private_key) {
-    creds.private_key = creds.private_key
-      .replace(/\\n/g, '\n')     // los "\n" literales → saltos
-      .replace(/\r/g, '');       // quitar retornos de carro si hay
-  }
+let credentialsObj
+try {
+  // 2) Parsear la variable (cadena JSON) a objeto JS
+  credentialsObj = JSON.parse(process.env.GOOGLE_CREDENTIALS_JSON);
+  
+} catch (err) {
+  console.error('ERROR: GOOGLE_CREDENTIALS_JSON no es JSON válido:', err);
+  process.exit(1);
+}
 
 // 3) Crear el GoogleAuth usando ese objeto de credenciales
 const auth = new google.auth.GoogleAuth({
-  credentials: creds,
+  credentials: credentialsObj,
   scopes: ['https://www.googleapis.com/auth/spreadsheets'] // ajusta según necesites
 });
 
