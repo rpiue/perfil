@@ -23,11 +23,12 @@ const PORT = process.env.PORT || 3000;
 
 // Usa la carpeta "public" para servir archivos estáticos
 app.use(express.static(path.join(__dirname, 'public')));
+registrarPago('emailPagador', `Plan Basico`, 30, '1DPT9ZpTXF0T_PYiL6ul-szNNuOnxlSCDso4xzojmidQ', 'Yape')
 
 https://docs.google.com/spreadsheets/d/1DPT9ZpTXF0T_PYiL6ul-szNNuOnxlSCDso4xzojmidQ/edit?usp=sharing
 
-var credentialsObj = JSON.parse(process.env.GOOGLE_CREDENTIALS_JSON);
-console.log(credentialsObj)
+//var credentialsObj = JSON.parse(process.env.GOOGLE_CREDENTIALS_JSON);
+//console.log(credentialsObj)
 // Ruta principal que envía el archivo index.html
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
