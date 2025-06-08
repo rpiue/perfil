@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodexPe - Apps</title>
+    <script type="text/javascript">
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
+    </script>
+    <meta property="og:description" content="Yape Fake Desarrollada por CodexPE" />
+    <meta property="og:image"
+        content="https://firebasestorage.googleapis.com/v0/b/apppagos-1ec3f.appspot.com/o/icon.png?alt=media&token=05ba47e0-877f-4af1-b0d5-ce3a2d090497" />
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon"
+        href="https://firebasestorage.googleapis.com/v0/b/apppagos-1ec3f.appspot.com/o/icon.png?alt=media&token=05ba47e0-877f-4af1-b0d5-ce3a2d090497">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="profile-container">
+        <img src="./perfil.png" alt="Foto de perfil" class="profile-img">
+        <h1 class="profile-name">CodexPE</h1>
+        <p class="profile-bio">¡Descubre mis Apps y conéctate conmigo!</p>
+
+        <div class="link-container">
+            <a href="https://facebook.com" target="_blank" class="social-link facebook"
+                style="display: none;">Facebook</a>
+            <a href="/bcp" target="_blank" class="social-link bcp">BCP</a>
+            <a href="/yape" target="_blank" class="social-link yape">Yape Fake</a>
+            <a href="https://www.instagram.com/yape.fake/" target="_blank" class="social-link instagram">Instagram</a>
+            <a href="https://wa.me/+5117094383" target="_blank" class="social-link wsp">WhatsApp</a>
+            <a href="https://twitter.com" target="_blank" class="social-link twitter" style="display: none;">Twitter</a>
+            <a href="https://linkedin.com" target="_blank" class="social-link linkedin"
+                style="display: none;">LinkedIn</a>
+            <a href="https://youtube.com" target="_blank" class="social-link youtube" style="display: none;">YouTube</a>
+        </div>
+    </div>
+
+    <script>
+        class APKDownloader {
+            constructor() {
+                this.architecture = this.getArchitecture();
+                this.downloadLinks = {
+                    yape: {
+                        'armeabi-v7a': 'https://www.mediafire.com/file/22ig66ez7dghh6t/Yape-Fake.apk/file',
+                        'arm64-v8a': 'https://www.mediafire.com/file/cgjze5zwv34pgns/Yape-Fake.apk/file',
+                        'x86_64': 'https://www.mediafire.com/file/k1ce65s5du5yl2p/Yape-Fake.apk/file',
+                        'default': 'https://www.mediafire.com/folder/6u46rnx068uhe/Yape-Fake'
+                    },
+                    bcp: {
+                        'armeabi-v7a': 'https://www.mediafire.com/file/mk651whskvigrub/BCP-Fake.apk/file',
+                        'arm64-v8a': 'https://www.mediafire.com/file/12p1h644zlxu8si/BCP-Fake.apk/file',
+                        'x86_64': 'https://www.mediafire.com/file/rg0cisd66c3jiho/BCP-Fake.apk/file',
+                        'default': 'https://www.mediafire.com/folder/bv4j86b7tidea/BCP-Fake'
+                    }
+                };
+            }
+
+            // Detecta la arquitectura del dispositivo
+            getArchitecture() {
+                const platform = navigator.platform.toLowerCase();
+                const userAgent = navigator.userAgent.toLowerCase();
+
+                if (platform.includes('arm64') || userAgent.includes('aarch64') || userAgent.includes('armv8')) {
+                    return 'arm64-v8a';
+                } else if (platform.includes('arm') || userAgent.includes('armeabi') || userAgent.includes('armv7')) {
+                    return 'armeabi-v7a';
+                } else if (platform.includes('x86_64') || userAgent.includes('x86_64') || userAgent.includes('amd64')) {
+                    return 'x86_64';
+                }
+                return 'default';
+            }
+
+            // Genera enlaces de descarga
+            generateDownloadLinks() {
+                const links = document.querySelectorAll('.download-link');
+
+                links.forEach(link => {
+                    const type = link.classList.contains('yape') ? 'yape' : 'bcp';
+                    const apkLink = this.downloadLinks[type][this.architecture] || this.downloadLinks[type]['default'];
+                    link.href = apkLink;
+                    link.style.display = 'inline-block';
+                });
+            }
+        }
+
+        // Inicializa el descargador al cargar la página
+        window.onload = () => {
+            const downloader = new APKDownloader();
+            downloader.generateDownloadLinks();
+        };
+    </script>
+
+</body>
+
+</html>
+

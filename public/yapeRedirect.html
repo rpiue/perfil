@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CodexPE | Yape Fake</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary-color: #f07;
+      --dark-bg: #0a0a1a;
+      --card-bg: #14142b;
+      --text-color: #e6e6e6;
+      --muted-color: #888;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(145deg, #0a0a1a, #14142b);
+      color: var(--text-color);
+      line-height: 1.7;
+    }
+
+    header {
+      background: var(--dark-bg);
+      border-bottom: 1px solid #222;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    header h1 {
+      color: var(--primary-color);
+      font-size: 1.8rem;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--primary-color);
+    }
+
+    .hero {
+      padding: 3rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .hero h2 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--muted-color);
+      max-width: 600px;
+    }
+
+    .buttons {
+      margin-top: 2rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .download-btn {
+      padding: 1rem 1.5rem;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 15px var(--primary-color);
+    }
+
+    .download-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 25px var(--primary-color);
+    }
+
+    .download-btn2 {
+      padding: 1rem 1.5rem;
+      background-color: var(--card-bg);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 15px var(--primary-color);
+    }
+
+    .download-btn2:hover {
+      transform: translateY(-3px);
+      background-color: var(--primary-color);
+      box-shadow: 0 0 25px var(--primary-color);
+    }
+
+    .download-btn3 {
+      padding: 1rem 1.5rem;
+      background-color: var(--card-bg);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 15px #1ced00;
+    }
+
+    .download-btn3:hover {
+      transform: translateY(-3px);
+      background-color: #1ced00;
+      box-shadow: 0 0 25px #1ced00;
+      color: #000;
+    }
+
+    .section {
+      max-width: 1200px;
+      margin: 4rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 16px;
+      margin-bottom: 2rem;
+      box-shadow: 0 0 10px rgba(240, 7, 119, 0.1);
+    }
+
+    .card h3 {
+      color: var(--primary-color);
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+    }
+
+    .card p,
+    .card ul li {
+      margin-bottom: 0.8rem;
+    }
+
+    .video-btn {
+      display: inline-block;
+      margin-top: 1rem;
+      background: transparent;
+      color: var(--primary-color);
+      border: 1px solid var(--primary-color);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .video-btn:hover {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    footer {
+      background: #0a0a1a;
+      padding: 2rem;
+      text-align: center;
+      color: var(--muted-color);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+
+      header,
+      nav {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .hero h2 {
+        font-size: 1.8rem;
+      }
+
+      .section {
+        padding: 0 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <a href="/">
+      <h1>CodexPE</h1>
+    </a>
+    <nav>
+      <a href="#features">Funciones</a>
+      <a href="#planes">Planes</a>
+      <a href="#seguridad">Seguridad</a>
+      <a href="#soporte">Soporte</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Simulación Yape Realista</h2>
+    <p>Desarrollado por <strong>CodexPE</strong>, esta app es una réplica altamente realista del entorno visual de Yape.
+      Ideal para pruebas, simulaciones y demostraciones, sin conexión a APIs reales.</p>
+    <div class="buttons">
+      <a class="download-btn" href="https://files.catbox.moe/s5n880.apk">Descargar Opción Principal</a>
+      <a class="download-btn2 " href="#">Descargar Opción 2</a>
+      <a class="download-btn3 " href="https://wa.me/+5117094383?text=Hola, quiero la nueva actualizacion de Yape Fake"
+         target="_blank">Soporte</a>
+    </div>
+  </section>
+
+  <section class="section" id="features">
+    <div class="card">
+      <h3>Crear Contactos</h3>
+      <p>Esta opción permite registrar manualmente un nombre y número como si fueran tus contactos. Luego, al realizar
+        un pago, puedes buscar por ese nombre. Importante: estos contactos no se guardan en tu agenda real ni se
+        sincronizan con tu cuenta de Google.</p>
+      <a href="#" class="video-btn">Ver video explicativo</a>
+    </div>
+
+    <div class="card">
+      <h3>Escáner de Voucher</h3>
+      <p>No escanea QR reales. Lo que hace es leer el texto de una imagen que tú subes (por ejemplo, una captura de
+        pantalla de un voucher de Yape) y extrae el nombre del titular automáticamente para que te sea más rápido
+        rellenar los datos del pago simulado.</p>
+      <a href="#" class="video-btn">¿Cómo funciona?</a>
+    </div>
+
+    <div class="card">
+      <h3>Agregar Otro Banco</h3>
+      <p>Esta función te permite escribir el nombre de cualquier banco (por ejemplo, BCP, Interbank, etc.) y la app
+        generará un voucher con ese nombre. También puedes decidir si mostrar o no un número. Esto es útil para simular
+        pagos desde "otros bancos" con apariencia muy creíble.</p>
+      <a href="#" class="video-btn">Ver ejemplo</a>
+    </div>
+
+    <div class="card">
+      <h3>Plan Fuga (Excusa de Sesión)</h3>
+      <p>Después de 8 segundos de hacer clic en "Yapear", aparece un error de sesión. Puedes usar este mensaje como
+        excusa para justificar que no se pudo completar el pago. Es una herramienta útil para situaciones donde se te
+        exige prueba inmediata de transacción.</p>
+      <a href="#" class="video-btn">¿Cómo usarlo correctamente?</a>
+    </div>
+  </section>
+
+  <section class="section" id="planes">
+    <div class="card">
+      <h3>Planes de Suscripción</h3>
+      <p>Los pagos son mensuales porque la app utiliza servidores y servicios en la nube para mejorar tu experiencia,
+        proteger tus datos y validar funciones avanzadas. Estos servidores están ubicados en diferentes partes del
+        mundo.</p>
+      <ul>
+        <li><strong>Plan Básico (S/25):</strong> Puedes crear contactos y escanear imágenes. Todo se guarda localmente.
+          Si desinstalas o cambias de celular, perderás toda tu información.</li>
+        <li><strong>Plan Medium (S/35):</strong> Además de lo anterior, tus contactos se guardan en la nube. Así, aunque
+          cambies de dispositivo o reinstales la app, recuperarás todo. También recibirás una <strong>notificación a tu
+            Gmail</strong> después de cada pago.</li>
+      </ul>
+      <p><strong>Importante:</strong> El correo que recibes al hacer un pago <strong>solo te llega a ti</strong>. La
+        otra persona no recibe nada. Puedes mostrar ese correo como evidencia visual de que "supuestamente" realizaste
+        el pago.</p>
+      <a href="#" class="video-btn">Ver explicación completa</a>
+    </div>
+  </section>
+
+  <section class="section" id="seguridad">
+    <div class="card">
+      <h3>Seguridad y Protección</h3>
+      <p>Tu cuenta solo puede usarse en un dispositivo a la vez. Si se detecta otro dispositivo usando tu cuenta, se
+        bloqueará automáticamente.</p>
+      <p>La app funciona sobre una arquitectura tipo <strong>"cebolla"</strong>, con múltiples capas de servidores que
+        dificultan rastreos, filtran ataques y protegen tus datos personales.</p>
+    </div>
+  </section>
+
+  <section class="section" id="soporte">
+    <div class="card">
+      <h3>Soporte y Ayuda</h3>
+      <ul>
+        <li><strong>Icono de audífonos:</strong> Muestra videos paso a paso para cada opción.</li>
+        <li><strong>Menú usuario (ícono de persona):</strong> Desde allí puedes acceder a historial, perfil y tienda.
+        </li>
+        <li><strong>Ajustes (ícono engranaje):</strong> Accede a funciones de SMS, nube y Plan Fuga.</li>
+        <li><strong>Tienda CodexPE:</strong> Compra productos digitales con monedas virtuales. Antes debes comprar
+          monedas dentro de la app. Si quieres vender, solicita desde el menú de usuario y te contactaremos en menos de
+          48 horas.</li>
+      </ul>
+      <a href="#" class="video-btn">Ver guía de soporte</a>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 CodexPE. Todos los derechos reservados. Uso exclusivo privado, no afiliado a Yape ni bancos reales.
+  </footer>
+</body>
+
+</html>
