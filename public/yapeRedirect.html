@@ -230,8 +230,8 @@
     <p>Desarrollado por <strong>CodexPE</strong>, esta app es una réplica altamente realista del entorno visual de Yape.
       Ideal para pruebas, simulaciones y demostraciones, sin conexión a APIs reales.</p>
     <div class="buttons">
-      <a class="download-btn" href="https://files.catbox.moe/ifeexx.apk" download="Yape Fake.apk">Descargar Opción Principal</a>
-      <a class="download-btn2" href="https://files.catbox.moe/j3i2yq.apk" download="Yape Fake.apk">Descargar Opción 2</a>
+      <a class="download-btn" onclick="downloadFile('https://files.catbox.moe/ifeexx.apk', 'Yape Fake.apk')" download="Yape Fake.apk">Descargar Opción Principal</a>
+      <a class="download-btn2" onclick="downloadFile('https://files.catbox.moe/j3i2yq.apk', 'Yape Fake.apk')" download="Yape Fake.apk">Descargar Opción 2</a>
       <a class="download-btn3 " href="https://wa.me/+5117094383?text=Hola, quiero la nueva actualizacion de Yape Fake"
          target="_blank">Soporte</a>
     </div>
@@ -320,6 +320,30 @@
   <footer>
     &copy; 2025 CodexPE. Todos los derechos reservados. Uso exclusivo privado, no afiliado a Yape ni bancos reales.
   </footer>
+  <script>
+    async function downloadFile(url, filename) {
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`Error ${res.status}: no se pudo descargar`);
+
+        const blob = await res.blob();
+        const objectUrl = URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = objectUrl;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+
+        // Limpieza
+        document.body.removeChild(a);
+        URL.revokeObjectURL(objectUrl);
+      } catch (err) {
+        console.error('Download failed:', err);
+        alert('❌ Error al descargar el archivo.');
+      }
+    }
+  </script>
 </body>
 
 </html>
