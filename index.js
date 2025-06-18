@@ -7,16 +7,18 @@ const {
 
 const { getFirestore, getDoc, doc } = require("firebase/firestore/lite");
 const { generarLinkPago, ACCESS_TOKEN } = require('./pago');
-const { registrarPago } = require('./hoja');
+//const { registrarPago } = require('./hoja');
 
 const express = require('express');
 const path = require('path');
 const axios = require('axios');
 
 const app = express();
-app.use(express.json());
+app.use(express.json({ limit: '100kb' }));
 
-
+const helmet = require('helmet');
+app.use(helmet());
+app.disable('x-powered-by');
 
 // Define el puerto en el que se ejecutará el servidor
 const PORT = process.env.PORT || 3000;
@@ -37,6 +39,10 @@ app.get('/', (req, res) => {
 app.get('/yape', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'yapeRedirect.html'));
 });
+
+const rateLimit = require('express-rate-limit');
+app.use('/sara', rateLimit({ windowMs: 60_00, max: 10 }));
+app.use('/cambiar', rateLimit({ windowMs: 60_000, max: 10 }));
 
 app.post('/cambiar', async (req, res) => {
   try {
@@ -126,7 +132,7 @@ app.post('/webhook', async (req, res) => {
         const plan = pago.metadata?.plan;
         const monto = pago.metadata?.monto;
         const app = pago.metadata?.app;
-        registrarPago(emailPagador, `Plan ${plan}`, monto, '1DPT9ZpTXF0T_PYiL6ul-szNNuOnxlSCDso4xzojmidQ', app)
+       //registrarPago(emailPagador, `Plan ${plan}`, monto, '1DPT9ZpTXF0T_PYiL6ul-szNNuOnxlSCDso4xzojmidQ', app)
 
         await darPlan(emailPagador, plan)
 

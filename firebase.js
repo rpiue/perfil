@@ -9,8 +9,8 @@ const firebaseConfig1 = {
   projectId: "apppagos-1ec3f",
   storageBucket: "apppagos-1ec3f.appspot.com",
   messagingSenderId: "296133590526",
-  appId: "1:296133590526:web:a47a8e69d5e9bfa26bd4af",
-  measurementId: "G-5QZSJN2S1Z"
+  appId: "1:296133590526:web:71b2ab77bf8923246bd4af",
+  measurementId: "G-P56P3BYY8P"
 };
 
 // 🟠 Proyecto 2 - controller
